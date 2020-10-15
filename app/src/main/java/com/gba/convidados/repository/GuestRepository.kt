@@ -114,8 +114,6 @@ class GuestRepository private constructor(context: Context) {
         return try {
             val db = guestDataBase.readableDatabase
 
-//            db.rawQuery("SELECT *FROM Guest WHERE ID = $id",null)
-
             val projection = arrayOf(
                 DataBaseConstants.GUEST.COLUMNS.ID,
                 DataBaseConstants.GUEST.COLUMNS.NAME,
@@ -157,7 +155,7 @@ class GuestRepository private constructor(context: Context) {
             val db = guestDataBase.readableDatabase
 
             val cursor =
-                db.rawQuery("SELECT *FROM Guest AS g WHERE g.presence = 1", null)
+                db.rawQuery("select *from Guest as g where g.presence = 1", null)
 
             if (cursor != null && cursor.count > 0) {
                 while (cursor.moveToNext()) {
@@ -185,7 +183,7 @@ class GuestRepository private constructor(context: Context) {
             val db = guestDataBase.readableDatabase
 
             val cursor =
-                db.rawQuery("SELECT *FROM Guest AS g WHERE g.presence = 0", null)
+                db.rawQuery("select *from Guest as g where g.presence = 0", null)
 
             if (cursor != null && cursor.count > 0) {
                 while (cursor.moveToNext()) {
