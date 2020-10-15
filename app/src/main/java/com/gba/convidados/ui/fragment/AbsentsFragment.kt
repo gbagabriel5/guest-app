@@ -22,7 +22,7 @@ class AbsentsFragment : Fragment() {
     ): View? {
         slideshowViewModel =
                 ViewModelProviders.of(this).get(AbsentsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
+        val root = inflater.inflate(R.layout.fragment_absent, container, false)
         val textView: TextView = root.findViewById(R.id.text_slideshow)
         slideshowViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
