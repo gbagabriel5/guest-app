@@ -1,5 +1,6 @@
 package com.gba.convidados.ui.adapter
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,17 @@ class GuestAllAdapter : RecyclerView.Adapter<GuestAllAdapter.GuestViewHolder>() 
             itemView.txtName.text = guest.name
             itemView.txtName.setOnClickListener {
                 listener.onClick(guest.id)
+            }
+            itemView.txtName.setOnLongClickListener {
+                AlertDialog.Builder(itemView.context)
+                    .setTitle(R.string.remocao_convidado)
+                    .setMessage(R.string.deseja_remover)
+                    .setPositiveButton(R.string.remover) { dialog, wich ->
+                        listener.onDelete(guest.id)
+                    }
+                    .setNeutralButton(R.string.cancelar,null)
+                    .show()
+                true
             }
         }
     }

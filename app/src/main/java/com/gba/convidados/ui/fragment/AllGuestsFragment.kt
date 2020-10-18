@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_all.*
 
 class AllGuestsFragment : Fragment() {
 
-    private lateinit var allGuestsViewModel: AllGuestsViewModel
+    private lateinit var viewModel: AllGuestsViewModel
 
     private val guestAdapter: GuestAllAdapter = GuestAllAdapter()
 
@@ -30,7 +30,7 @@ class AllGuestsFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        allGuestsViewModel = ViewModelProvider(this).get(AllGuestsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AllGuestsViewModel::class.java)
         return inflater.inflate(R.layout.fragment_all, container, false)
     }
 
@@ -48,6 +48,11 @@ class AllGuestsFragment : Fragment() {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
+
+            override fun onDelete(id: Int) {
+                viewModel.delete(id)
+                viewModel.load()
+            }
         }
         guestAdapter.attachListener(mListener)
         observe()
@@ -55,11 +60,11 @@ class AllGuestsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        allGuestsViewModel.load()
+        viewModel.load()
     }
 
     private fun observe() {
-        allGuestsViewModel.guestList.observe(viewLifecycleOwner, Observer {
+        viewModel.guestList.observe(viewLifecycleOwner, Observer {
             guestAdapter.updateGuests(it)
         })
     }
