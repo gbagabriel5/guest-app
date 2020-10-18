@@ -68,7 +68,7 @@ class GuestRepository private constructor(context: Context) {
         }
     }
 
-    fun getById(id: Int) : Guest? {
+    fun get(id: Int) : Guest? {
         var guest: Guest? = null
         return try {
             val db = guestDataBase.readableDatabase

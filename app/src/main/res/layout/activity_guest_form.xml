@@ -8,7 +8,7 @@
     tools:context=".ui.activity.GuestFormActivity">
 
     <TextView
-        android:id="@+id/txtNome"
+        android:id="@+id/txtNameForm"
         android:text="Nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,11 +17,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="parent" />
     <EditText
-        android:id="@+id/editNome"
+        android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="0dp"
-        app:layout_constraintTop_toBottomOf="@id/txtNome"
+        app:layout_constraintTop_toBottomOf="@id/txtNameForm"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="parent" />
     <TextView
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="0dp"
-        app:layout_constraintTop_toBottomOf="@id/editNome"
+        app:layout_constraintTop_toBottomOf="@id/editName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="parent" />
     <RadioGroup
@@ -40,12 +40,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintLeft_toRightOf="parent">
         <RadioButton
-            android:id="@+id/radio_presente"
+            android:id="@+id/radio_present"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Presente" />
         <RadioButton
-            android:id="@+id/absent"
+            android:id="@+id/radio_absent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ausente" />

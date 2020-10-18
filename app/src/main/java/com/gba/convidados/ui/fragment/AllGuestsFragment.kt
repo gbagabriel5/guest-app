@@ -1,5 +1,6 @@
 package com.gba.convidados.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gba.convidados.R
+import com.gba.convidados.constants.GuestConstants
+import com.gba.convidados.ui.activity.GuestFormActivity
 import com.gba.convidados.ui.adapter.GuestAllAdapter
+import com.gba.convidados.ui.listener.GuestListener
 import com.gba.convidados.ui.viewmodel.AllGuestsViewModel
 import kotlinx.android.synthetic.main.fragment_all.*
 
@@ -18,6 +22,8 @@ class AllGuestsFragment : Fragment() {
     private lateinit var allGuestsViewModel: AllGuestsViewModel
 
     private val guestAdapter: GuestAllAdapter = GuestAllAdapter()
+
+    private lateinit var mListener: GuestListener
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -34,6 +40,16 @@ class AllGuestsFragment : Fragment() {
         recyclerAll.layoutManager = LinearLayoutManager(context)
         recyclerAll.adapter = guestAdapter
 
+        mListener = object : GuestListener {
+            override fun onClick(id: Int) {
+                val intent = Intent(context, GuestFormActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt(GuestConstants.GUESTID, id)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+        }
+        guestAdapter.attachListener(mListener)
         observe()
     }
 
