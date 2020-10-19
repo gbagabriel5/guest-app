@@ -1,29 +1,32 @@
 package com.gba.convidados.helper
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
-import com.gba.convidados.constants.DataBaseConstants
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.gba.convidados.dao.GuestDAO
+import com.gba.convidados.model.Guest
 
-class GuestDataBase(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-    override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(CREATE_TABLE_GUEST)
-    }
+@Database(entities = [Guest::class], version = 1)
+abstract class GuestDataBase : RoomDatabase() {
 
-    override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-
-    }
+    abstract fun guestDao() : GuestDAO
 
     companion object {
-        private const val DATABASE_NAME = "guest.db"
-        private const val DATABASE_VERSION = 1
 
-        private const val CREATE_TABLE_GUEST =
-            ("create table " + DataBaseConstants.GUEST.TABLE_NAME + " ("
-                    + DataBaseConstants.GUEST.COLUMNS.ID + " integer primary key autoincrement, "
-                    + DataBaseConstants.GUEST.COLUMNS.NAME + " text, "
-                    + DataBaseConstants.GUEST.COLUMNS.PRESENCE + " integer);"
-                    )
+        private lateinit var INSTANCE : GuestDataBase
+
+        fun getDataBase(context: Context) : GuestDataBase {
+            if(!::INSTANCE.isInitialized) {
+                synchronized(GuestDataBase::class.java) {
+                    INSTANCE = Room.databaseBuilder(
+                        context,
+                        GuestDataBase::class.java,
+                        "guestDB"
+                    ).allowMainThreadQueries().build()
+                }
+            }
+            return INSTANCE
+        }
     }
 }
