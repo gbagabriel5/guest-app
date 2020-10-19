@@ -20,9 +20,7 @@ import kotlinx.android.synthetic.main.fragment_all.*
 class AllGuestsFragment : Fragment() {
 
     private lateinit var viewModel: AllGuestsViewModel
-
     private val guestAdapter: GuestAllAdapter = GuestAllAdapter()
-
     private lateinit var mListener: GuestListener
 
     override fun onCreateView(
@@ -51,7 +49,7 @@ class AllGuestsFragment : Fragment() {
 
             override fun onDelete(id: Int) {
                 viewModel.delete(id)
-                viewModel.load()
+                viewModel.load(GuestConstants.FILTER.EMPTY)
             }
         }
         guestAdapter.attachListener(mListener)
@@ -60,7 +58,7 @@ class AllGuestsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.load()
+        viewModel.load(GuestConstants.FILTER.EMPTY)
     }
 
     private fun observe() {
